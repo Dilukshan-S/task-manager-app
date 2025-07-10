@@ -1,0 +1,28 @@
+# === Node.js (backend & frontend) ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === dotenv environment files ===
+.env
+.env.*.local
+
+# === Logs ===
+logs
+*.log
+log/
+
+# === Build outputs ===
+dist/
+build/
+
+# === OS/IDE files ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# === GitHub Pages output (optional) ===
+frontend/gh-pages/

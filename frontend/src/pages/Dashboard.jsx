@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import client from '../api/client';
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [newTitle, setNewTitle] = useState('');
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Fetch tasks on mount
   useEffect(() => {
@@ -53,6 +55,12 @@ export default function Dashboard() {
     }
   };
 
+  const handleLogout = () => {
+    // Clear auth token or user data
+    localStorage.removeItem('token'); // or whatever you're using
+    navigate('/login');
+  };
+
   if (loading) return <p>Loading tasks...</p>;
 
   return (
@@ -89,6 +97,10 @@ export default function Dashboard() {
           ))}
         </ul>
       )}
+      <div>
+      <button onClick={handleLogout}>Logout</button>
+      {/* Your other content */}
+    </div>
     </div>
   );
 }

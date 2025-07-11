@@ -31,6 +31,10 @@ export default function Login() {
         <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
         <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} required />
         <button type="submit" className="bg-green-500 text-white py-2 rounded">Login</button>
+        <div>
+          <br/>
+          Don't have an account? <a href="/register" className="text-blue-500">Register</a>
+        </div>
       </form>
     </div>
   );

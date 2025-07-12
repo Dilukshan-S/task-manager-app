@@ -67,7 +67,7 @@ export default function Dashboard() {
       <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-extrabold text-blue-800 tracking-tight">My Tasks</h1>
-          <button
+          <button style={{ position: 'absolute',right: '20px', top: '20px' }}
             onClick={handleLogout}
             className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-full shadow"
           >
@@ -86,6 +86,7 @@ export default function Dashboard() {
           <button
             onClick={addTask}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full text-lg shadow"
+            /*style={{ position: 'absolute', right: '200px', top: '345px' }}*/
           >
             Add
           </button>

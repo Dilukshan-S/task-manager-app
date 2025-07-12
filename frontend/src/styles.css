@@ -1,7 +1,4 @@
-/* styles.css */
 html, body {
-  justify-content: center;
-  align-content: center;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -9,16 +6,32 @@ html, body {
 
 .app-container {
   min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;      /* stack header, form, message vertically */
+  justify-content: center;     /* center vertically */
+  align-items: center;         /* center horizontally */
+
+  /* your gradient & text color */
   background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
   background-size: 400% 400%;
-  color: #000;           /* light‐mode text */
+  animation: gradientShift 15s ease infinite;
+  color: #000;                 /* light‑mode text */
+  text-align: center;          
+}
+
+.Sun{
+  position: absolute;
+  top: 0px;
+  right: 630px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .dark .app-container {
   background: linear-gradient(135deg, #2b5876, #4e4376, #2b5876);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-  color: #fff;           /* dark‐mode text */
+  color: #fff;                 /* dark‑mode text */
 }
 
 @keyframes gradientShift {

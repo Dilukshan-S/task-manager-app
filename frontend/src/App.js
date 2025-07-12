@@ -15,7 +15,9 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <ThemeToggle theme={theme} setTheme={setTheme} />
+      <div className="Sun">
+              <ThemeToggle theme={theme} setTheme={setTheme} />
+      </div>
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />

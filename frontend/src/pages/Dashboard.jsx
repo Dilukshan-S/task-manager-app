@@ -8,7 +8,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch tasks on mount
   useEffect(() => {
     async function fetchTasks() {
       try {
@@ -23,7 +22,6 @@ export default function Dashboard() {
     fetchTasks();
   }, []);
 
-  // Create new task
   const addTask = async () => {
     if (!newTitle.trim()) return alert('Please enter a task title');
     try {
@@ -35,7 +33,6 @@ export default function Dashboard() {
     }
   };
 
-  // Toggle complete
   const toggleComplete = async (id, completed) => {
     try {
       const res = await client.put(`/tasks/${id}`, { completed: !completed });
@@ -45,7 +42,6 @@ export default function Dashboard() {
     }
   };
 
-  // Delete task
   const deleteTask = async (id) => {
     try {
       await client.delete(`/tasks/${id}`);
@@ -56,51 +52,76 @@ export default function Dashboard() {
   };
 
   const handleLogout = () => {
-    // Clear auth token or user data
-    localStorage.removeItem('token'); // or whatever you're using
+    localStorage.removeItem('token');
     navigate('/login');
   };
 
-  if (loading) return <p>Loading tasks...</p>;
+  if (loading) return (
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
+      <p className="text-lg text-gray-700 animate-pulse">Loading tasks...</p>
+    </div>
+  );
 
   return (
-    <div className="max-w-xl mx-auto p-4">
-      <h1 className="text-3xl mb-4">Dashboard</h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 px-4 py-8">
+      <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-8">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-extrabold text-blue-800 tracking-tight">My Tasks</h1>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-full shadow"
+          >
+            Logout
+          </button>
+        </div>
 
-      <div className="flex gap-2 mb-4">
-        <input
-          type="text"
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
-          placeholder="New task title"
-          className="flex-grow border px-2 py-1"
-        />
-        <button onClick={addTask} className="bg-blue-600 text-white px-4 py-1 rounded">Add</button>
+        <div className="flex gap-3 mb-6">
+          <input
+            type="text"
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            placeholder="What needs to be done?"
+            className="flex-grow border-2 border-gray-300 rounded-full px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <button
+            onClick={addTask}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full text-lg shadow"
+          >
+            Add
+          </button>
+        </div>
+
+        {tasks.length === 0 ? (
+          <p className="text-gray-500 text-center text-lg mt-10">🎉 You're all caught up!</p>
+        ) : (
+          <ul className="space-y-4">
+            {tasks.map(task => (
+              <li
+                key={task._id}
+                className="flex justify-between items-center bg-white border border-gray-200 shadow-sm p-4 rounded-xl hover:shadow-md transition-all duration-200"
+              >
+                <label className="flex items-center gap-3 text-lg">
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => toggleComplete(task._id, task.completed)}
+                    className="accent-blue-600 w-5 h-5"
+                  />
+                  <span className={task.completed ? 'line-through text-gray-400' : 'text-gray-800'}>
+                    {task.title}
+                  </span>
+                </label>
+                <button
+                  onClick={() => deleteTask(task._id)}
+                  className="text-red-500 hover:text-red-700 text-sm font-medium"
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-
-      {tasks.length === 0 ? <p>No tasks found</p> : (
-        <ul>
-          {tasks.map(task => (
-            <li key={task._id} className="flex justify-between items-center mb-2">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => toggleComplete(task._id, task.completed)}
-                />
-                <span className={task.completed ? 'line-through ml-2' : 'ml-2'}>
-                  {task.title}
-                </span>
-              </label>
-              <button onClick={() => deleteTask(task._id)} className="text-red-600">Delete</button>
-            </li>
-          ))}
-        </ul>
-      )}
-      <div>
-      <button onClick={handleLogout}>Logout</button>
-      {/* Your other content */}
-    </div>
     </div>
   );
 }

@@ -24,10 +24,10 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-white p-8 rounded-2xl shadow-md w-[700px]">
-        <h2 className="text-3xl font-bold mb-6 text-center text-blue-700">Login</h2>
-        {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
+    <div >
+      <div>
+        <h2 >Login</h2>
+        {error && <div >{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <input
@@ -36,7 +36,6 @@ export default function Login() {
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
-            className="w-full border border-gray-300 px-4 py-3 rounded-2xl focus:outline-none focus:ring focus:border-blue-400"
             required
           />
           <br />
@@ -47,20 +46,18 @@ export default function Login() {
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
-            className="w-full border border-gray-300 px-4 py-3 rounded-2xl focus:outline-none focus:ring focus:border-blue-400"
             required
           />
           <br />
           <br />
           <button
             type="submit"
-            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-lg"
           >
             Login
           </button>
         </form>
 
-        <p className="mt-4 text-center text-sm">
+        <p>
           Don’t have an account?{' '}
           <a href="/register" className="text-blue-600 hover:underline">
             Register

@@ -24,25 +24,34 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
-        <h2 className="text-3xl font-bold mb-6 text-center text-blue-700">Register</h2>
-        {error && <div className="text-red-500 mb-4">{error}</div>}
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div>
+      <div>
+        <h2>Register</h2>
+        {error && <div>{error}</div>}
+        <form onSubmit={handleSubmit} className="">
+          Name:
           <input type="text" name="name" placeholder="Name" value={form.name}
             onChange={handleChange}
-            className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-400" required />
+           required />
+            <br />
+            <br />
+          Email:
           <input type="email" name="email" placeholder="Email" value={form.email}
             onChange={handleChange}
-            className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-400" required />
+            required />
+            <br />
+            <br />
+          Password:
           <input type="password" name="password" placeholder="Password" value={form.password}
             onChange={handleChange}
-            className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:border-blue-400" required />
-          <button type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">Register</button>
+            required />
+            <br />
+            <br />
+          <button type="submit">
+            Register</button>
         </form>
-        <p className="mt-4 text-center text-sm">
-          Already registered? <a href="/login" className="text-blue-600 hover:underline">Login</a>
+        <p>
+          Already registered? <a href="/login" >Login</a>
         </p>
       </div>
     </div>

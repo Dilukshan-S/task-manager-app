@@ -11,7 +11,6 @@ html, body {
   justify-content: center;
   align-items: center;     
 
-  /* your gradient & text color */
   background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
@@ -22,7 +21,7 @@ html, body {
 .Sun{
   position: absolute;
   top: 0px;
-  right: 630px;
+  left: 0%;
   border: none;
   padding: 10px;
   cursor: pointer;

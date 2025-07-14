@@ -30,6 +30,8 @@ export default function Login() {
         {error && <div >{error}</div>}
 
         <form onSubmit={handleSubmit}>
+          E-mail:
+          <br />
           <input
             type="email"
             name="email"
@@ -39,6 +41,8 @@ export default function Login() {
             required
           />
           <br />
+          <br />
+          Password:
           <br />
           <input
             type="password"

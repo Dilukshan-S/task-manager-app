@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/taskdb';
 
 const app = express();
 

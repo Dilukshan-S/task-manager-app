@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import client from '../api/client';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import client from "../api/client";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
-  const [newTitle, setNewTitle] = useState('');
+  const [newTitle, setNewTitle] = useState("");
+  const [editId, setEditId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchTasks() {
       try {
-        const res = await client.get('/tasks');
+        const res = await client.get("/tasks");
         setTasks(res.data);
       } catch (err) {
-        alert('Failed to fetch tasks');
+        alert("Failed to fetch tasks");
       } finally {
         setLoading(false);
       }
@@ -23,101 +26,151 @@ export default function Dashboard() {
   }, []);
 
   const addTask = async () => {
-    if (!newTitle.trim()) return alert('Please enter a task title');
+    if (!newTitle.trim()) return alert("Please enter a task title");
     try {
-      const res = await client.post('/tasks', { title: newTitle });
-      setTasks([res.data, ...tasks]);
-      setNewTitle('');
+      if (editId) {
+        const res = await client.put(`/tasks/${editId}`, { title: newTitle });
+        setTasks(tasks.map((t) => (t._id === editId ? res.data : t)));
+        setEditId(null);
+      } else {
+        const res = await client.post("/tasks", { title: newTitle });
+        setTasks([res.data, ...tasks]);
+      }
+      setNewTitle("");
     } catch {
-      alert('Failed to add task');
+      alert("Failed to save task");
     }
   };
 
   const toggleComplete = async (id, completed) => {
     try {
       const res = await client.put(`/tasks/${id}`, { completed: !completed });
-      setTasks(tasks.map(t => (t._id === id ? res.data : t)));
+      setTasks(tasks.map((t) => (t._id === id ? res.data : t)));
     } catch {
-      alert('Failed to update task');
+      alert("Failed to update task");
     }
   };
 
   const deleteTask = async (id) => {
     try {
       await client.delete(`/tasks/${id}`);
-      setTasks(tasks.filter(t => t._id !== id));
+      setTasks(tasks.filter((t) => t._id !== id));
     } catch {
-      alert('Failed to delete task');
+      alert("Failed to delete task");
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
+  const startEdit = (task) => {
+    setEditId(task._id);
+    setNewTitle(task.title);
   };
 
-  if (loading) return (
-    <div className="">
-      <p className="">Loading tasks...</p>
-    </div>
-  );
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const filteredTasks = tasks
+    .filter((task) =>
+      task.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) =>
+      sortOrder === "asc"
+        ? a.title.localeCompare(b.title)
+        : b.title.localeCompare(a.title)
+    );
+
+  if (loading)
+    return (
+      <div className="spinner">
+        <p>Loading tasks...</p>
+      </div>
+    );
 
   return (
-    <div className="">
-      <div className="">
-        <div className="">
-          <h1 className="">My Tasks</h1>
-          <button style={{ position: 'absolute',right: '20px', top: '20px' }}
+    <div className="dashboard-container">
+      <div>
+        <div>
+          <h1>My Tasks</h1>
+          <button
+            style={{ position: "absolute", right: "20px", top: "20px" }}
             onClick={handleLogout}
-            className=""
           >
             Logout
           </button>
         </div>
 
-        <div className="">
+        <div className="filter wrapper">
+          <input
+            type="text"
+            placeholder="Search tasks..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+            className="sort-select"
+          >
+            <option value="asc">Sort A-Z</option>
+            <option value="desc">Sort Z-A</option>
+          </select>
+        </div>
+
+        <div className="dashboard-input">
           <input
             type="text"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             placeholder="What needs to be done?"
-            className=""
           />
-          <button
-            onClick={addTask}
-            className=""
-            /*style={{ position: 'absolute', right: '200px', top: '345px' }}*/
-          >
-            Add
-          </button>
+          <button onClick={addTask}>{editId ? "Update" : "Add"}</button>
         </div>
 
         {tasks.length === 0 ? (
-          <p className="">🎉 You're all caught up!</p>
+          <p>🎉 You're all caught up!</p>
         ) : (
-          <ul className="space-y-4">
-            {tasks.map(task => (
-              <li
-                key={task._id}
-                className=""
-              >
-                <label className="">
+          <ul style={{ listStyle: "none", padding: 0, marginTop: "20px" }}>
+            {filteredTasks.map((task) => (
+              <li key={task._id} className="task-item">
+                <label>
                   <input
                     type="checkbox"
                     checked={task.completed}
                     onChange={() => toggleComplete(task._id, task.completed)}
-                    className=""
                   />
-                  <span className={task.completed ? 'line-through text-gray-400' : 'text-gray-800'}>
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                      textDecoration: task.completed ? "line-through" : "none",
+                      color: task.completed ? "#999" : "#000",
+                    }}
+                  >
                     {task.title}
+                    <br />
+                    <small>
+                      Start: {new Date(task.createdAt).toLocaleString()}
+                    </small>
+                    {task.endTime && (
+                      <>
+                        <br />
+                        <small>
+                          End: {new Date(task.endTime).toLocaleString()}
+                        </small>
+                      </>
+                    )}
                   </span>
                 </label>
-                <button
-                  onClick={() => deleteTask(task._id)}
-                  className=""
-                >
-                  Delete
-                </button>
+                <div>
+                  <button
+                    onClick={() => startEdit(task)}
+                    style={{ marginRight: "10px" }}
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => deleteTask(task._id)}>Delete</button>
+                </div>
               </li>
             ))}
           </ul>

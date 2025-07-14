@@ -158,6 +158,7 @@ div.dashboard-container h1 {
   align-items: center;
   padding: 10px;
   background-color: #f0f0f0;
+  border: 1px solid #000;
   border-radius: 6px;
   transition: background-color 0.3s;
 }
@@ -197,4 +198,63 @@ div.dashboard-container h1 {
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+.filter wrapper{
+   display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.search-input,
+.sort-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dark .search-input,
+.dark .sort-select {
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #888;
+}
+
+.search-input{
+  position: relative;
+  flex: 1;
+  top: -14px;
+  right: 140px;
+  width: 200px;
+}
+
+.sort-select {
+  position: relative;
+  top: -14px;
+  padding: 10px;
+  left: 130px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+  .dashboard-input {
+    flex-direction: column;
+  }
 }

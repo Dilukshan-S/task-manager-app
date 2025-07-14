@@ -150,16 +150,29 @@ export default function Dashboard() {
                     {task.title}
                     <br />
                     <small>
-                      Start: {new Date(task.createdAt).toLocaleString()}
+                      <div
+                        style={{
+                          fontSize: "0.8rem",
+                          color: "#555",
+                          marginTop: "5px",
+                        }}
+                      >
+                        <p>
+                          Started: {new Date(task.createdAt).toLocaleString()}
+                        </p>
+                        {task.completed && task.completedAt && (
+                          <p>
+                            Time Taken:{" "}
+                            {Math.round(
+                              (new Date(task.completedAt) -
+                                new Date(task.createdAt)) /
+                                60000
+                            )}{" "}
+                            mins
+                          </p>
+                        )}
+                      </div>
                     </small>
-                    {task.endTime && (
-                      <>
-                        <br />
-                        <small>
-                          End: {new Date(task.endTime).toLocaleString()}
-                        </small>
-                      </>
-                    )}
                   </span>
                 </label>
                 <div>

@@ -40,7 +40,10 @@ router.put("/:id", auth, async (req, res) => {
   if (!task) return res.status(404).json({ msg: "Task not found" });
 
   if (title !== undefined) task.title = title;
-  if (completed !== undefined) task.completed = completed;
+  if (completed !== undefined){
+     task.completed = completed;
+      task.completedAt = completed ? new Date() : null;
+  }
   if (endTime !== undefined) task.endTime = endTime;
 
   await task.save();

@@ -1,7 +1,6 @@
 {
   "name": "task-manager-frontend",
   "version": "0.1.0",
-  "homepage": "https://Dilukshan-S.github.io/task-manager-app",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {

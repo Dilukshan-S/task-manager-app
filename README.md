@@ -109,3 +109,21 @@ docker volume prune
 
 📜  License
 MIT License © 2025
+
+<img width="1347" height="601" alt="image" src="https://github.com/user-attachments/assets/7533b543-fa3e-4f65-8d51-75b00f4c3382" />
+<img width="1288" height="687" alt="image" src="https://github.com/user-attachments/assets/2b355ea2-9873-426a-a505-391ac1547c7b" />
+<img width="515" height="92" alt="image" src="https://github.com/user-attachments/assets/0feb3dd5-26e8-4d87-9079-551fff5a1a97" />
+<img width="362" height="368" alt="image" src="https://github.com/user-attachments/assets/c8763f78-5e9c-4dfd-9fea-ed284e8d919f" />
+<img width="391" height="476" alt="image" src="https://github.com/user-attachments/assets/b610e4d5-311a-43ed-a11c-4202e79a9fbe" />
+<img width="400" height="616" alt="image" src="https://github.com/user-attachments/assets/94d4fe25-8c60-41ea-ae17-8188efffda95" />
+<img width="1350" height="550" alt="image" src="https://github.com/user-attachments/assets/6152b9e8-8aa2-40ac-9e9a-d33e851cbc92" />
+<img width="638" height="492" alt="image" src="https://github.com/user-attachments/assets/966ab8f6-80a6-4a83-9632-159fe41b6ac9" />  - edit task
+<img width="629" height="322" alt="image" src="https://github.com/user-attachments/assets/7fc15154-f190-4acd-923b-cc0da8478c8e" />
+<img width="638" height="652" alt="image" src="https://github.com/user-attachments/assets/03da8c4c-92f8-4748-8279-870bb8cbb954" />
+<img width="645" height="484" alt="image" src="https://github.com/user-attachments/assets/89f381c8-2c9c-4f20-a33c-e193af147ad3" />
+<img width="628" height="624" alt="image" src="https://github.com/user-attachments/assets/26784f4e-6727-4f44-b607-f789a7509b44" />
+
+
+
+
+

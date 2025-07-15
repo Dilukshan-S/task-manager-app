@@ -3,7 +3,8 @@ name: Deploy Frontend to GitHub Pages
 on:
   push:
     branches:
-      - master    
+      - master
+      - main
 
 jobs:
   build-and-deploy:
@@ -13,8 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0          
-          persist-credentials: true 
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Use Node.js
         uses: actions/setup-node@v4

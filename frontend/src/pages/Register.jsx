@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import client from '../api/client';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import client from "../api/client";
+import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,47 +15,76 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     try {
-      await client.post('/auth/register', form);
-      alert('Registration successful! You can log in now.');
-      navigate('/login');
+      await client.post("/auth/register", form);
+      alert("Registration successful! You can log in now.");
+      navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.msg || 'Registration failed');
+      setError(err.response?.data?.msg || "Registration failed");
     }
   };
 
   return (
     <div>
-      <div>
-        <h2>Register</h2>
-        {error && <div>{error}</div>}
-        <form onSubmit={handleSubmit} className="">
-          Name:
-          <input type="text" name="name" placeholder="Name" value={form.name}
+      <h2>Register</h2>
+      {error && <div>{error}</div>}
+      <form onSubmit={handleSubmit}>
+        Name:
+        <br />
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Enter your name"
+          required
+        />
+        <br />
+        <br />
+        Email:
+        <br />
+        <input
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          type="email"
+          placeholder="Enter your email"
+          required
+        />
+        <br />
+        <br />
+        Password:
+        <br />
+        <div style={{ position: "relative" }}>
+          <input
+            name="password"
+            value={form.password}
             onChange={handleChange}
-           required />
-            <br />
-            <br />
-          Email:
-          <input type="email" name="email" placeholder="Email" value={form.email}
-            onChange={handleChange}
-            required />
-            <br />
-            <br />
-          Password:
-          <input type="password" name="password" placeholder="Password" value={form.password}
-            onChange={handleChange}
-            required />
-            <br />
-            <br />
-          <button type="submit">
-            Register</button>
-        </form>
-        <p>
-          Already registered? <a href="/login" >Login</a>
-        </p>
-      </div>
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter your password"
+            required
+            style={{ paddingRight: "8rem" }}
+          />
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "8px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer",
+            }}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+        <br />
+        <br />
+        <button type="submit">Register</button>
+      </form>
+      <p>
+        Already registered? <a href="/login">Login</a>
+      </p>
     </div>
   );
 }
